@@ -1,22 +1,9 @@
 from django.db import models
 from apps.accounts.models import User
 from apps.store.models import Product
+from django.core.validators import MinLengthValidator
 import uuid
 
-
-class Cart(models.Model):
-
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    
-
-
-class CartItem(models.Model):
-
-    cart = models.ForeignKey(Cart,on_delete=models.CASCADE,related_name='items')
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Order(models.Model):
@@ -32,11 +19,11 @@ class Order(models.Model):
     total_amount = models.DecimalField(max_digits=10,decimal_places=2)
     is_paid = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    address = models.CharField(max_length=200)
+    address = models.CharField(max_length=200,validators=[MinLengthValidator(11)])
     phone = models.CharField(max_length=20)
 
     def __str__(self):
-        return f"Order is  {self.user.first_name}"
+        return f"Order is for {self.user.first_name}"
 
 
 class OrderItem(models.Model):
@@ -49,4 +36,13 @@ class OrderItem(models.Model):
 
     
     def __str__(self):
-        return f"{self.order.order_code} - item"
+        return f' it is for {self.order.user.first_name}'
+
+
+
+class Notification(models.Model):
+
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    message = models.TextField()
+    is_read = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
