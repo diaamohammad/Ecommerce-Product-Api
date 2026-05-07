@@ -71,4 +71,4 @@ class ResetPasswordSerializer(serializers.Serializer):
     email = serializers.EmailField()
 
     def validate_email(self, value):
-        if not
+        pass

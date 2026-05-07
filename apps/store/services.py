@@ -1,5 +1,5 @@
 from .models import Product,Review
-from orders.models import OrderItem
+from apps.orders.models import OrderItem
 from django.core.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
 
