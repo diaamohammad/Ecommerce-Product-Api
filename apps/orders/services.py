@@ -9,10 +9,11 @@ from rest_framework.exceptions import ValidationError
 from django.db import transaction
 
 
+   
 redis_client = redis.from_url(
-    settings.REDIS_URL,
-    decode_responses=True
-)
+       settings.REDIS_URL,
+       decode_responses=True
+      )
 
 
 
