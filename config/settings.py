@@ -155,3 +155,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 # Redis
 
 REDIS_URL = os.environ.get("REDIS_URL")
+
+
+print("ENV DATABASE_URL =", os.environ.get("DATABASE_URL"))
