@@ -18,6 +18,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN python manage.py collectstatic --noinput
+
+RUN SECRET_KEY="dummy-key-for-build" DATABASE_URL="sqlite:///:memory:" python manage.py collectstatic --noinput
 
 CMD ["sh", "-c", "gunicorn config.wsgi:application --bind 0.0.0.0:$PORT"]

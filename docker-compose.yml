@@ -1,17 +1,20 @@
-version : "3.9"
+version: "3.9"
 
-services :
-
-    web:
-       build : .
-       command: python manage.py runserver 0.0.0.0:8000
-       volumes: 
-         - .:/app
-       ports:
-         - "8000:8000"
-       depends_on:
-         - db
-
+services:
+  web:
+    build: .
+    
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    volumes: 
+      - .:/app
+    ports:
+      - "8000:8000"
+   
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - SECRET_KEY=${SECRET_KEY}
+      - REDIS_URL=${REDIS_URL}
+    
     
 
     
