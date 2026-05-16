@@ -17,8 +17,6 @@ redis_client = redis.from_url(
 
 
 
-
-
 class CartService:
     
 
